@@ -1,4 +1,3 @@
-/* ===== BODY ===== */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -6,7 +5,6 @@ body {
     background: #e9edf5;
 }
 
-/* ===== NAVBAR ===== */
 .navbar {
     background: #2f3640;
     color: white;
@@ -27,7 +25,6 @@ body {
     opacity: 0.8;
 }
 
-/* ===== HERO CARD (kutia kryesore) ===== */
 .hero-card {
     background: rgba(255, 255, 255, 0.85);
     border-radius: 12px;
@@ -38,7 +35,6 @@ body {
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* ===== TITLES ===== */
 h1 {
     margin-bottom: 15px;
 }
@@ -63,7 +59,6 @@ button:hover,
     background: #1e272e;
 }
 
-/* ===== FORM ===== */
 label {
     font-weight: 600;
     display: block;
@@ -87,7 +82,6 @@ input:focus {
     border-color: #2f3640;
 }
 
-/* ===== LINKS ===== */
 a {
     color: #2f3640;
 }
@@ -395,7 +389,7 @@ html, body {
     border-radius: 10px;
 }
 
-/* RECENT */
+// RECENT 
 .recent-row {
     display: flex;
     gap: 15px;
@@ -420,7 +414,6 @@ html, body {
     margin-top: 30px;
 }
 
-/* BUTONI BLU */
 .btn-view {
     background: #2563eb;   /* blu e bukur */
     color: white;
@@ -432,7 +425,6 @@ html, body {
     transition: 0.2s;
 }
 
-/* hover efekt */
 .btn-view:hover {
     background: #1d4ed8;
 }
@@ -447,7 +439,6 @@ html, body {
     transition: 0.2s;
 }
 
-/* hover efekt */
 .btn-add:hover {
     background: #15803d;
 }.btn-add {
@@ -461,7 +452,6 @@ html, body {
     transition: 0.2s;
 }
 
-/* hover efekt */
 .btn-add:hover {
     background: #15803d;
 }
@@ -639,7 +629,6 @@ html, body {
     margin-top: 10px;
 }
 
-/* card i lehte elegant */
 .recent-card {
     display: flex;
     align-items: center;
@@ -653,7 +642,6 @@ html, body {
     transition: 0.2s;
 }
 
-/* hover efekt */
 .recent-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -766,6 +754,7 @@ html, body {
     text-align: center;
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
+
 /* ===== PROFILE PAGE ===== */
 
 .profile-page {
@@ -983,7 +972,7 @@ html, body {
     height: auto;
     align-self: flex-start;
 }
-/* format dekorative */
+
 .profile-shape {
     position: absolute;
     z-index: 1;
@@ -1112,9 +1101,7 @@ html, body {
 .chart-card {
     border-radius: 16px;
 }
-/* =========================
-   AI QUERY PAGE
-========================= */
+
 .ai-query-page {
     padding: 40px 30px 80px;
 }
@@ -1466,7 +1453,6 @@ html, body {
     color: #fda4af;
 }
 
-/* Responsive */
 @media (max-width: 992px) {
     .main-navbar {
         grid-template-columns: 1fr;
@@ -1496,20 +1482,17 @@ html, body {
     background: #064B35;
 }
 
-/* majtas */
 .nav-left {
     display: flex;
     justify-content: flex-start;
 }
 
-/* mes */
 .nav-center {
     display: flex;
     justify-content: center;
     gap: 30px;
 }
 
-/* djathtas */
 .nav-right {
     display: flex;
     justify-content: flex-end;
@@ -1797,7 +1780,6 @@ html, body {
     background-color: #dcfce7;
     color: #15803d;
 }
-/* Wrapper */
 .select-wrapper {
     position: relative;
     display: inline-flex;
@@ -1805,7 +1787,6 @@ html, body {
     margin-right: 10px;
 }
 
-/* Ikona */
 .select-wrapper i {
     position: absolute;
     left: 12px;
@@ -1814,7 +1795,6 @@ html, body {
     z-index: 2;
 }
 
-/* Select */
 .select-wrapper select {
     appearance: none;
     padding: 10px 14px 10px 36px;
@@ -1827,19 +1807,16 @@ html, body {
     transition: 0.2s ease;
 }
 
-/* GENRE pastel (blu e lehtë) */
 .select-wrapper select[name="genre"] {
     background: #dbeafe;
     color: #1e3a8a;
 }
 
-/* STATUS pastel (jeshile e lehtë) */
 .select-wrapper.status select {
     background: #dcfce7;
     color: #166534;
 }
 
-/* Hover */
 .select-wrapper select:hover {
     transform: translateY(-1px);
 }
@@ -1861,7 +1838,6 @@ html, body {
     z-index: 2;
 }
 
-/* input */
 .search-wrapper input {
     padding: 10px 14px 10px 36px;
     border-radius: 999px;
@@ -1876,13 +1852,11 @@ html, body {
     transition: 0.2s ease;
 }
 
-/* focus efekt */
 .search-wrapper input:focus {
     background: #e2e8f0;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-/* hover */
 .search-wrapper input:hover {
     transform: translateY(-1px);
 }
@@ -2039,7 +2013,6 @@ html, body {
     background: #d9e9df;
 }
 
-/* responsive */
 @media (max-width: 992px) {
     .hero-section {
         grid-template-columns: 1fr;
@@ -2115,7 +2088,6 @@ html, body {
     overflow: hidden;
 }
 
-/* overlay i lehte mbi foto */
 .hero-banner::before {
     content: "";
     position: absolute;
@@ -2373,7 +2345,6 @@ html, body {
     color: #5a6a63;
 }
 
-/* responsive */
 @media (max-width: 1100px) {
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -2411,7 +2382,6 @@ html, body {
     gap: 10px;
 }
 
-/* WRAPPER */
 .brand-text-wrapper {
     display: flex;
     flex-direction: column;
@@ -2419,14 +2389,12 @@ html, body {
     gap: 3px;
 }
 
-/* TEKSTI KRYESOR */
 .brand-text {
     font-size: 20px;
     font-weight: 700;
     color: white;
 }
 
-/* TEKSTI POSHT */
 .brand-subtext {
     font-size: 11px;
     color: rgba(255, 255, 255, 0.7);
@@ -2518,8 +2486,6 @@ html, body {
     font-weight: 700;
     color: #17392b;
 }
-
-/* Django form fields */
 .modern-book-form input,
 .modern-book-form select,
 .modern-book-form textarea {
@@ -2543,12 +2509,10 @@ html, body {
     background: #ffffff;
 }
 
-/* select pak me clean */
 .modern-book-form select {
     cursor: pointer;
 }
 
-/* actions */
 .book-form-actions {
     display: flex;
     gap: 14px;
@@ -2594,7 +2558,6 @@ html, body {
     transform: translateY(-2px);
 }
 
-/* responsive */
 @media (max-width: 768px) {
     .book-form-card {
         padding: 28px 20px;
@@ -3267,7 +3230,6 @@ html, body {
     gap: 26px;
 }
 
-/* HERO CARD */
 .dashboard-hero-card {
     position: relative;
     overflow: visible;
@@ -3354,7 +3316,6 @@ html, body {
     color: #0b3d27;
 }
 
-/* IMAGE */
 .dashboard-hero-figure {
     position: absolute;
     right: -70px;
@@ -3372,7 +3333,6 @@ html, body {
     filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.22));
 }
 
-/* STATS INSIDE HERO */
 .hero-stats-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -3416,7 +3376,6 @@ html, body {
     font-weight: 600;
 }
 
-/* LOWER SECTION CARDS */
 .dashboard-section-card {
     background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(8px);
@@ -3451,7 +3410,6 @@ html, body {
     color: #6a7b73;
 }
 
-/* RECOMMENDED */
 .recommended-section {
     display: flex;
     flex-wrap: wrap;
@@ -3516,7 +3474,6 @@ html, body {
     background: linear-gradient(135deg, #e11d48, #be123c);
 }
 
-/* RECENT */
 .btn-view {
     display: inline-flex;
     align-items: center;
@@ -3578,7 +3535,6 @@ html, body {
     color: #6a7b73;
 }
 
-/* RESPONSIVE */
 @media (max-width: 1100px) {
     .dashboard-hero-card {
         flex-direction: column;
@@ -3638,7 +3594,6 @@ html, body {
     animation: floatBooks 4s ease-in-out infinite;
 }
 
-/* ANIMATION */
 @keyframes floatBooks {
     0% {
         transform: translateY(0px) rotate(2deg);
@@ -3654,12 +3609,10 @@ html, body {
     margin-right: 6px;
     color: #ffffffcc;
 }
-/* Recommended */
 .recommended-block {
     background: linear-gradient(135deg, #e6f4ef, #108f5c);
 }
 
-/* Recent */
 .recent-block {
     background: linear-gradient(135deg, #f1fbf7, #52f0ae);
 }

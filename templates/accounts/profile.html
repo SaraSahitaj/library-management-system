@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile-page">
+    <div class="profile-wrapper">
+
+        <div class="profile-header fade-up">
+            <h1 class="profile-main-title">My Profile</h1>
+            <p class="profile-main-subtitle">Manage your account and view your reading insights.</p>
+        </div>
+
+        <div class="profile-layout">
+
+     <div class="profile-panel profile-left-panel fade-up delay-1">
+    <div class="profile-avatar-wrap">
+        <img
+src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ request.user.username }}"
+class="profile-avatar"
+>
+    </div>
+
+    <div class="profile-identity">
+        <h2>{{ user_obj.first_name|default:user_obj.username }}</h2>
+        <p>@{{ user_obj.username }}</p>
+
+        <span class="profile-status-badge">
+            <i class="fa-solid fa-book-open-reader"></i>
+            {{ reader_status }}
+        </span>
+    </div>
+
+    <form method="POST" class="profile-edit-form">
+        {% csrf_token %}
+
+        <div class="profile-info-list">
+            <div class="profile-info-item">
+                <div class="profile-info-icon">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+                <div class="profile-info-text full">
+                    <span class="profile-info-label">Name</span>
+                    {{ form.first_name }}
+                </div>
+            </div>
+
+            <div class="profile-info-item">
+                <div class="profile-info-icon">
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+                <div class="profile-info-text full">
+                    <span class="profile-info-label">Email</span>
+                    {{ form.email }}
+                </div>
+            </div>
+
+            <div class="profile-info-item readonly-item">
+                <div class="profile-info-icon">
+                    <i class="fa-solid fa-at"></i>
+                </div>
+                <div class="profile-info-text">
+                    <span class="profile-info-label">Username</span>
+                    <span class="profile-info-value">{{ user_obj.username }}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-item readonly-item">
+                <div class="profile-info-icon">
+                    <i class="fa-regular fa-calendar"></i>
+                </div>
+                <div class="profile-info-text">
+                    <span class="profile-info-label">Member Since</span>
+                    <span class="profile-info-value">{{ member_since }}</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="profile-save-btn" type="submit">
+            <i class="fa-solid fa-floppy-disk"></i>
+            <span>Save</span>
+        </button>
+    </form>
+</div>
+            <!-- RIGHT SIDE -->
+            <div class="profile-right-side">
+
+                <div class="profile-panel library-insights-card fade-up delay-2">
+                    <div class="panel-heading">
+                        <h2>Library Insights</h2>
+                        <p>Your current reading summary</p>
+                    </div>
+
+                    <div class="insight-grid">
+                        <div class="insight-box">
+                            <span class="insight-box-label">Favorite Genre</span>
+                            <span class="insight-box-value green-text">{{ favorite_genre }}</span>
+                        </div>
+
+                        <div class="insight-box">
+                            <span class="insight-box-label">Total Books</span>
+                            <span class="insight-box-value">{{ total_books }}</span>
+                        </div>
+
+                        <div class="insight-box">
+                            <span class="insight-box-label">Reading</span>
+                            <span class="insight-box-value green-text">{{ reading_books }}</span>
+                        </div>
+
+                        <div class="insight-box">
+                            <span class="insight-box-label">Planned</span>
+                            <span class="insight-box-value blue-text">{{ planned_books }}</span>
+                        </div>
+
+                        <div class="insight-box">
+                            <span class="insight-box-label">Completed</span>
+                            <span class="insight-box-value orange-text">{{ completed_books }}</span>
+                        </div>
+
+                        <div class="insight-box">
+                            <span class="insight-box-label">Reader Type</span>
+                            <span class="insight-box-value">{{ reader_status }}</span>
+                        </div>
+                    </div>
+
+                    <div class="insights-divider"></div>
+
+                    <div class="insights-list modern-insights-list">
+                        {% for insight in insights %}
+                            <div class="modern-insight-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>{{ insight }}</span>
+                            </div>
+                        {% empty %}
+                            <div class="modern-insight-item">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span>No insights available yet.</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="profile-panel insights-chart-card fade-up delay-3">
+                    <div class="panel-heading">
+                        <h2>Books by Status</h2>
+                        <p>Quick visual overview of your reading progress</p>
+                    </div>
+
+                    <div class="chart-wrap">
+                        <canvas
+                            id="profileInsightsChart"
+                            data-completed="{{ completed_books }}"
+                            data-reading="{{ reading_books }}"
+                            data-planned="{{ planned_books }}">
+                        </canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const chartElement = document.getElementById("profileInsightsChart");
+
+    if (chartElement) {
+        const completed = parseInt(chartElement.dataset.completed) || 0;
+        const reading = parseInt(chartElement.dataset.reading) || 0;
+        const planned = parseInt(chartElement.dataset.planned) || 0;
+
+        const ctx = chartElement.getContext("2d");
+
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["Completed", "Reading", "Planned"],
+                datasets: [{
+                    label: "Books",
+                    data: [completed, reading, planned],
+                    backgroundColor: ["#f59e0b", "#0b6b4c", "#3b82f6"],
+                    borderRadius: 10,
+                    maxBarThickness: 70
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            color: "#4b6358",
+                            font: {
+                                size: 13,
+                                weight: "600"
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                            color: "#4b6358"
+                        },
+                        grid: {
+                            color: "rgba(6, 75, 53, 0.08)"
+                        }
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

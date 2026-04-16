@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="library-page">
+
+    <h2 class="page-title">
+        {% if request.user.is_staff %}
+            All Books
+        {% else %}
+            My Books
+        {% endif %}
+    </h2>
+
+    <form method="GET" action="" class="search-bar">
+    
+    <div class="search-wrapper">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input
+            type="text"
+            name="q"
+            placeholder="Search books..."
+            value="{{ request.GET.q|default:'' }}"
+        >
+    </div>
+
+    <div class="select-wrapper">
+        <i class="fa-solid fa-layer-group"></i>
+        <select name="genre">
+            <option value="">All Genres</option>
+            <option value="Business" {% if request.GET.genre == "Business" %}selected{% endif %}>Business</option>
+            <option value="Poetry" {% if request.GET.genre == "Poetry" %}selected{% endif %}>Poetry</option>
+            <option value="Romance" {% if request.GET.genre == "Romance" %}selected{% endif %}>Romance</option>
+            <option value="Fantasy" {% if request.GET.genre == "Fantasy" %}selected{% endif %}>Fantasy</option>
+            <option value="Fiction" {% if request.GET.genre == "Fiction" %}selected{% endif %}>Fiction</option>
+            <option value="Self-Help" {% if request.GET.genre == "Self-Help" %}selected{% endif %}>Self-Help</option>
+            <option value="Science" {% if request.GET.genre == "Science" %}selected{% endif %}>Science</option>
+            <option value="Classic" {% if request.GET.genre == "Classic" %}selected{% endif %}>Classic</option>
+            <option value="Science-Fiction" {% if request.GET.genre == "Science-Fiction" %}selected{% endif %}>Science-Fiction</option>
+            <option value="Drama" {% if request.GET.genre == "Drama" %}selected{% endif %}>Drama</option>
+        </select>
+    </div>
+
+    <div class="select-wrapper status">
+        <i class="fa-solid fa-book-open-reader"></i>
+        <select name="status">
+            <option value="">All Status</option>
+            <option value="plan_to_read" {% if request.GET.status == "plan_to_read" %}selected{% endif %}>Plan to Read</option>
+            <option value="reading" {% if request.GET.status == "reading" %}selected{% endif %}>Reading</option>
+            <option value="completed" {% if request.GET.status == "completed" %}selected{% endif %}>Completed</option>
+        </select>
+    </div>
+
+    <button type="submit" class="filter-btn">Filter</button>
+    <a href="{% url 'book_list' %}" class="reset-btn">Reset</a>
+</form>
+    <div class="book-grid">
+        {% for book in books %}
+        <div class="book-card">
+
+            <div class="book-cover">
+                {% if book.cover_url %}
+                    <img src="{{ book.cover_url }}" alt="{{ book.title }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/190x280.png?text=No+Cover" alt="{{ book.title }}">
+                {% endif %}
+            </div>
+
+            <h5>{{ book.title }}</h5>
+
+            <p class="book-author">
+                by {{ book.author }}
+            </p>
+
+            {% if request.user.is_superuser %}
+                <p class="book-owner">
+                    <span class="owner-label">Owner:</span> {{ book.owner.username }}
+                </p>
+            {% endif %}
+
+            <div class="book-status {{ book.status }}">
+                {{ book.get_status_display }}
+            </div>
+
+            <div class="book-price">
+                {{ book.price|floatformat:0 }} Lekë
+            </div>
+
+            <div class="book-actions">
+                <a href="{% url 'book_edit' book.id %}" class="edit-btn">Edit</a>
+                <a href="{% url 'book_delete' book.id %}" class="delete-btn">Delete</a>
+            </div>
+
+        </div>
+        {% empty %}
+            <p>No books available.</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

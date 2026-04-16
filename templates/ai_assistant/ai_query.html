@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="ai-page">
+    <div class="ai-wrapper">
+
+        <div class="ai-header fade-up">
+            <h1 class="ai-main-title">AI Query Agent</h1>
+            <p class="ai-main-subtitle">Ask smart questions about your library data in a simple and intuitive way.</p>
+        </div>
+
+        <div class="ai-card fade-up delay-1">
+
+            <div class="ai-left">
+                <div class="ai-icon-circle">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+
+                <h2>Smart Library Assistant</h2>
+                <p>
+                    Get quick insights from your books, readers, genres, and reading activity.
+                </p>
+
+                <div class="ai-mini-badges">
+                    <span>Fast</span>
+                    <span>Simple</span>
+                    <span>Useful</span>
+                </div>
+            </div>
+
+            <div class="ai-right">
+                <div class="ai-form-box">
+                    <h3>Ask your question</h3>
+                    <p class="ai-form-subtext">Use natural language to explore your library data.</p>
+
+                    <form method="POST" class="ai-query-form">
+                        {% csrf_token %}
+
+                        <div class="ai-input-wrap">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <input
+                                type="text"
+                                name="query"
+                                placeholder="e.g. Who owns the most books?"
+                                value="{{ query|default:'' }}"
+                            >
+                        </div>
+
+                        <button type="submit" class="ai-ask-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Ask</span>
+                        </button>
+                    </form>
+
+                    <div class="ai-example-box">
+                        <h4>Example Questions</h4>
+
+                        <div class="ai-example-list">
+                            <button type="button" class="ai-example-chip" onclick="fillQuery('Who owns the most books?')">
+                                Who owns the most books?
+                            </button>
+
+                            <button type="button" class="ai-example-chip" onclick="fillQuery('Which is the most popular book?')">
+                                Which is the most popular book?
+                            </button>
+
+                            <button type="button" class="ai-example-chip" onclick="fillQuery('Show the five most expensive books.')">
+                                Show the five most expensive books.
+                            </button>
+
+                            <button type="button" class="ai-example-chip" onclick="fillQuery('Which genre is most common?')">
+                                Which genre is most common?
+                            </button>
+
+                            <button type="button" class="ai-example-chip" onclick="fillQuery('How many completed books are there?')">
+                                How many completed books are there?
+                            </button>
+                        </div>
+                    </div>
+
+                    {% if answer %}
+<div class="ai-answer-box">
+    <h4>Answer</h4>
+    <p>{{ answer }}</p>
+</div>
+{% endif %}
+
+{% if table_data %}
+<div class="ai-table-box">
+    <h4>Results</h4>
+    <div class="ai-table-wrap">
+        <table class="ai-results-table">
+            <thead>
+                <tr>
+                    {% for header in table_headers %}
+                        <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table_data %}
+                    <tr>
+                        {% for cell in row %}
+                            <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function fillQuery(text) {
+    const input = document.querySelector('input[name="query"]');
+    if (input) {
+        input.value = text;
+        input.focus();
+    }
+}
+</script>
+{% endblock %}

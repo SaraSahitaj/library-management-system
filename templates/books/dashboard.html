@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <div class="dashboard-page">
+
+        <!-- HERO CARD -->
+        <div class="dashboard-hero-card">
+            <div class="dashboard-hero-content">
+                <div class="dashboard-hero-top">
+                    <div>
+                        <p class="dashboard-hero-mini">Library Hub • Smart Overview</p>
+                        <h2 class="dashboard-title">Hello {{ request.user.username|title }}!</h2>
+                        <p class="dashboard-hero-subtitle">
+                            Manage your library with a cleaner and smarter dashboard.
+                        </p>
+                    </div>
+
+                    <a href="{% url 'book_add' %}" class="btn-add">+ Add Book</a>
+                </div>
+
+                <div class="stats-row hero-stats-row">
+                    <div class="stat-card hero-stat-card">
+                        <i class="fas fa-book stat-icon"></i>
+                        <h2>{{ books_count }}</h2>
+                        <p>Total Books</p>
+                    </div>
+
+                    <div class="stat-card hero-stat-card">
+                        <i class="fas fa-check-circle stat-icon"></i>
+                        <h2>{{ completed_count }}</h2>
+                        <p>Completed</p>
+                    </div>
+
+                    <div class="stat-card hero-stat-card">
+                        <i class="fas fa-users stat-icon"></i>
+                        <h2>{{ users_count }}</h2>
+                        <p>Users</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOOK STACK IMAGE -->
+            <div class="dashboard-hero-figure">
+                <img src="\static\css\images\book.png" alt="Book Stack">
+            </div>
+        </div>
+
+        <!-- RECOMMENDED -->
+        <div class="dashboard-block dashboard-section-card recommended-block">
+            <div class="section-heading">
+                <div>
+                    <h3>Recommended For You</h3>
+                    <p class="recommended-subtitle">
+    <i class="fas fa-book-open"></i>
+    Your “Plan to Read” list — ready when you are.
+</p>
+                </div>
+            </div>
+
+            <div class="recommended-section">
+                {% for item in recommendation_cards %}
+                    <div class="recommended-card {{ item.color }}">
+                        <div class="recommended-cover">
+                            {% if item.book.cover_url %}
+                                <img src="{{ item.book.cover_url }}" alt="{{ item.book.title }}">
+                            {% else %}
+                                <img src="https://via.placeholder.com/120x170.png?text=No+Cover" alt="{{ item.book.title }}">
+                            {% endif %}
+                        </div>
+
+                        <div class="recommended-info">
+                            <h4>{{ item.book.title }}</h4>
+                            <p class="recommended-author">{{ item.book.author }}</p>
+                            <p class="recommended-meta">
+                                {{ item.book.get_status_display }} • {{ item.book.price|floatformat:0 }} Lekë
+                            </p>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No recommendations available</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- RECENT -->
+        <div class="dashboard-block dashboard-section-card recent-block">
+            <div class="recent-header">
+                <div>
+                    <h3>Recent Books</h3>
+                    <p>Your latest added titles.</p>
+                </div>
+                <a href="{% url 'book_list' %}" class="btn-view">View all</a>
+            </div>
+
+            <div class="recent-books-row">
+                {% for book in recent_books %}
+                    <div class="recent-card-big">
+                        <div class="recent-cover">
+                            {% if book.cover_url %}
+                                <img src="{{ book.cover_url }}" alt="{{ book.title }}">
+                            {% else %}
+                                <img src="https://via.placeholder.com/100x140.png?text=No+Cover" alt="{{ book.title }}">
+                            {% endif %}
+                        </div>
+
+                        <div class="recent-info">
+                            <h4>{{ book.title }}</h4>
+                            <p>{{ book.author }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Library Insights</h2>
+
+<div class="card">
+    <p><strong>Total Books:</strong> {{ total_books }}</p>
+    <p><strong>Completed:</strong> {{ completed_books }}</p>
+    <p><strong>Reading:</strong> {{ reading_books }}</p>
+    <p><strong>Planned:</strong> {{ planned_books }}</p>
+
+    {% if most_read_genre %}
+        <p><strong>Favorite Genre:</strong> {{ most_read_genre }}</p>
+        <h4>Books by Status</h4>
+<canvas
+    id="booksChart"
+    width="300"
+    height="200"
+    data-completed="{{ completed_books }}"
+    data-reading="{{ reading_books }}"
+    data-planned="{{ planned_books }}">
+</canvas>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const chartElement = document.getElementById('booksChart');
+
+const completedBooks = parseInt(chartElement.dataset.completed);
+const readingBooks = parseInt(chartElement.dataset.reading);
+const plannedBooks = parseInt(chartElement.dataset.planned);
+
+const ctx = chartElement.getContext('2d');
+
+const booksChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Completed', 'Reading', 'Planned'],
+        datasets: [{
+            label: 'Number of Books',
+            data: [completedBooks, readingBooks, plannedBooks],
+            backgroundColor: ['#28a745', '#ffc107', '#17a2b8'],
+            borderRadius: 5
+        }]
+    },
+    options: {
+        responsive: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        }
+    }
+});
+</script>
+
+    {% endif %}
+</div>
+
+<div class="card">
+    <h4>Insights:</h4>
+    <ul>
+        {% for insight in insights %}
+            <li>{{ insight }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

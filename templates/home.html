@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="landing-page">
+
+    <section class="hero-banner">
+        <div class="hero-overlay-card">
+            <div class="hero-content-left">
+                <p class="hero-mini-title">Organize. Track. Manage</p>
+
+                <h1>Your Personal<br>Library Hub</h1>
+
+                <p class="hero-description">
+                    Organize your books, monitor your reading progress,
+                    and manage your collection through a clean and user-friendly dashboard.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="{% url 'register' %}" class="hero-btn primary-btn">Create account</a>
+                    <a href="{% url 'login' %}" class="hero-btn secondary-btn">Login</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="features-header">
+            <h2>What You Can Do</h2>
+            <div class="features-line"></div>
+        </div>
+
+  <div class="features-grid">
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'book_add' %}" class="feature-card-link">
+    {% endif %}
+        <div class="feature-card">
+            <div class="feature-number">1</div>
+            <div class="feature-icon icon-green">
+                <i class="fa-solid fa-square-plus"></i>
+            </div>
+            <h3>Add, Edit & Delete</h3>
+            <p>Manage your book collection easily by adding new books, updating details, or removing old ones.</p>
+        </div>
+    {% if user.is_authenticated %}
+    </a>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'book_list' %}" class="feature-card-link">
+    {% endif %}
+        <div class="feature-card">
+            <div class="feature-number">2</div>
+            <div class="feature-icon icon-blue">
+                <i class="fa-solid fa-book-open-reader"></i>
+            </div>
+            <h3>Track Reading Status</h3>
+            <p>Keep your books organized by marking them as Plan to Read, Reading, or Completed.</p>
+        </div>
+    {% if user.is_authenticated %}
+    </a>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'dashboard' %}" class="feature-card-link">
+    {% endif %}
+        <div class="feature-card">
+            <div class="feature-number">3</div>
+            <div class="feature-icon icon-orange">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h3>Personal Dashboard</h3>
+            <p>Access your own dashboard to quickly view your books, progress, and personal activity.</p>
+        </div>
+    {% if user.is_authenticated %}
+    </a>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'profile' %}" class="feature-card-link">
+    {% endif %}
+        <div class="feature-card">
+            <div class="feature-number">4</div>
+            <div class="feature-icon icon-purple">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3>Secure Access</h3>
+            <p>Use a secure authentication system so every user can safely manage only their own library.</p>
+        </div>
+    {% if user.is_authenticated %}
+    </a>
+    {% endif %}
+
+</div>
+    </section>
+
+</div>
+{% endblock %}
